@@ -117,4 +117,89 @@ describe "tests de remiseria" {
     assert.that(combi.motorRuidoso())
   }
 
+
+
+
+  test "Reserva exigente cumplida sin inconvenientes"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(480)
+    reserva.tiempo(4)
+    reserva.coloresContraindicados(#{"rojo", "verde fluor"})
+    reserva.necesitaTransportador(true)
+    reserva.necesitaMotorSilencioso(true)
+    combi.interior(interiorAccesible)
+    combi.motor(motorUrbano)
+    reserva.vehiculo(combi)
+    assert.that(reserva.puedeRealizarse())
+  }
+
+
+
+
+  test "Reserva que falla por capacidad insuficiente"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(200)
+    reserva.tiempo(2)
+    reserva.vehiculo(reyDeCopas)
+    assert.notThat(reserva.puedeRealizarse())
+  }
+
+
+
+
+  test "Reserva que falla por autonomía insuficiente"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(195)
+    reserva.tiempo(2)
+    reserva.vehiculo(xeneize)
+    assert.notThat(reserva.puedeRealizarse())
+  }
+
+
+
+
+  test "Reserva que falla por velocidad insuficiente"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(200)
+    reserva.tiempo(1)
+    reserva.vehiculo(millonario)
+    assert.notThat(reserva.puedeRealizarse())
+  }
+
+
+
+
+  test "Reserva que falla por color contraindicado"{
+    reserva.cantidadPersonas(4)
+    reserva.distancia(150)
+    reserva.tiempo(1.5)
+    reserva.agregarColorContraindicado("rojo")
+    reserva.vehiculo(reyDeCopas)
+    assert.notThat(reserva.puedeRealizarse())
+  }
+
+
+
+
+  test "Reserva que falla por necesitar transportar silla de ruedas"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(150)
+    reserva.tiempo(1.5)
+    reserva.necesitaTransportador(true)
+    reserva.vehiculo(millonario)
+    assert.notThat(reserva.puedeRealizarse())
+  }
+
+
+
+
+  test "Reserva que falla por necesitar un vehículo silencioso"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(150)
+    reserva.tiempo(1.5)
+    reserva.necesitaMotorSilencioso(true)
+    reserva.vehiculo(millonario)
+    assert.notThat(reserva.puedeRealizarse())
+  }
+
 }

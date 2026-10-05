@@ -207,3 +207,60 @@ object motorUrbano {
     return false
   }
 }
+
+
+
+
+object reserva {
+
+  var property cantidadPersonas = 0
+
+  var property distancia = 0
+
+  var property tiempo = 0
+
+  var property coloresContraindicados = #{}
+
+  var property vehiculo = combi
+
+  var property necesitaTransportador = false
+
+  var property necesitaMotorSilencioso = false
+
+
+
+  method puedeRealizarse() {
+    return vehiculo.capacidad() >= cantidadPersonas and
+           vehiculo.autonomia() >= distancia and
+           vehiculo.velocidadMaxima() >= ((distancia / tiempo) + 10) and
+           not coloresContraindicados.contains(vehiculo.color()) and
+           self.tieneTransportadorSiNecesita() and
+           self.tieneMotorSilenciosoSiNecesita()
+   }
+  
+
+    method tieneTransportadorSiNecesita(){
+      if (necesitaTransportador){
+        return vehiculo.transportador()
+      } else {
+        return true
+      }
+    }
+
+
+
+    method tieneMotorSilenciosoSiNecesita(){
+      if (necesitaMotorSilencioso){
+        return not vehiculo.motorRuidoso()
+      } else {
+        return true
+      }
+    }
+
+
+
+    method agregarColorContraindicado(color){
+      coloresContraindicados.add(color)
+    }
+  
+}

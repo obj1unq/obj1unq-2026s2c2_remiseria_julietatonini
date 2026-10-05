@@ -113,7 +113,7 @@ Considerar los siguientes vehículos. Se utilizan nombres de fantasía porque de
     - la capacidad es 5
     - No puede llevar sillas de ruedas
     - No es ruidoso
-    
+
 #### Económico: millonario
   Probar que para millonario:
     - El color es beige
@@ -224,6 +224,18 @@ Una reserva de 5 personas, 150 km de distancia, 1.5 horas de viaje, que necesita
 Una reserva de 5 personas, 150 km de distancia, 1.5 horas de viaje, que necesita un vehículo silencioso.
 
   Probar que esta reserva **no puede** ser cumplida por millonario (el vehículo es ruidoso).
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 3. Sucursales y viajes
 
