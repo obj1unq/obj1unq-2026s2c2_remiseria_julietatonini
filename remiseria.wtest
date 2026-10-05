@@ -124,13 +124,13 @@ describe "tests de remiseria" {
     reserva.cantidadPersonas(5)
     reserva.distancia(480)
     reserva.tiempo(4)
-    reserva.coloresContraindicados(#{"rojo", "verde fluor"})
+    reserva.agregarColorContraindicado("rojo")
+    reserva.agregarColorContraindicado("verde fluor")
     reserva.necesitaTransportador(true)
     reserva.necesitaMotorSilencioso(true)
     combi.interior(interiorAccesible)
     combi.motor(motorUrbano)
-    reserva.vehiculo(combi)
-    assert.that(reserva.puedeRealizarse())
+    assert.that(reserva.puedeRealizarse(combi))
   }
 
 
@@ -140,8 +140,7 @@ describe "tests de remiseria" {
     reserva.cantidadPersonas(5)
     reserva.distancia(200)
     reserva.tiempo(2)
-    reserva.vehiculo(reyDeCopas)
-    assert.notThat(reserva.puedeRealizarse())
+    assert.notThat(reserva.puedeRealizarse(reyDeCopas))
   }
 
 
@@ -151,8 +150,7 @@ describe "tests de remiseria" {
     reserva.cantidadPersonas(5)
     reserva.distancia(195)
     reserva.tiempo(2)
-    reserva.vehiculo(xeneize)
-    assert.notThat(reserva.puedeRealizarse())
+    assert.notThat(reserva.puedeRealizarse(xeneize))
   }
 
 
@@ -162,8 +160,7 @@ describe "tests de remiseria" {
     reserva.cantidadPersonas(5)
     reserva.distancia(200)
     reserva.tiempo(1)
-    reserva.vehiculo(millonario)
-    assert.notThat(reserva.puedeRealizarse())
+    assert.notThat(reserva.puedeRealizarse(millonario))
   }
 
 
@@ -174,8 +171,7 @@ describe "tests de remiseria" {
     reserva.distancia(150)
     reserva.tiempo(1.5)
     reserva.agregarColorContraindicado("rojo")
-    reserva.vehiculo(reyDeCopas)
-    assert.notThat(reserva.puedeRealizarse())
+    assert.notThat(reserva.puedeRealizarse(reyDeCopas))
   }
 
 
@@ -186,8 +182,7 @@ describe "tests de remiseria" {
     reserva.distancia(150)
     reserva.tiempo(1.5)
     reserva.necesitaTransportador(true)
-    reserva.vehiculo(millonario)
-    assert.notThat(reserva.puedeRealizarse())
+    assert.notThat(reserva.puedeRealizarse(millonario))
   }
 
 
@@ -198,8 +193,14 @@ describe "tests de remiseria" {
     reserva.distancia(150)
     reserva.tiempo(1.5)
     reserva.necesitaMotorSilencioso(true)
-    reserva.vehiculo(millonario)
-    assert.notThat(reserva.puedeRealizarse())
+    assert.notThat(reserva.puedeRealizarse(millonario))
   }
+
+
+
+
+  const villaElisa = new Sucursal (
+    
+  )
 
 }

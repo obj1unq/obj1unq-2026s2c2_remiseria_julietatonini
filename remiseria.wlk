@@ -219,9 +219,8 @@ object reserva {
 
   var property tiempo = 0
 
-  var property coloresContraindicados = #{}
+  const coloresContraindicados = #{}
 
-  var property vehiculo = combi
 
   var property necesitaTransportador = false
 
@@ -229,17 +228,17 @@ object reserva {
 
 
 
-  method puedeRealizarse() {
+  method puedeRealizarse(vehiculo) {
     return vehiculo.capacidad() >= cantidadPersonas and
            vehiculo.autonomia() >= distancia and
            vehiculo.velocidadMaxima() >= ((distancia / tiempo) + 10) and
            not coloresContraindicados.contains(vehiculo.color()) and
-           self.tieneTransportadorSiNecesita() and
-           self.tieneMotorSilenciosoSiNecesita()
+           self.tieneTransportadorSiNecesita(vehiculo) and
+           self.tieneMotorSilenciosoSiNecesita(vehiculo)
    }
   
 
-    method tieneTransportadorSiNecesita(){
+    method tieneTransportadorSiNecesita(vehiculo){
       if (necesitaTransportador){
         return vehiculo.transportador()
       } else {
@@ -249,7 +248,7 @@ object reserva {
 
 
 
-    method tieneMotorSilenciosoSiNecesita(){
+    method tieneMotorSilenciosoSiNecesita(vehiculo){
       if (necesitaMotorSilencioso){
         return not vehiculo.motorRuidoso()
       } else {
@@ -262,5 +261,97 @@ object reserva {
     method agregarColorContraindicado(color){
       coloresContraindicados.add(color)
     }
+
+
+    method coloresContraindicados(){
+      return coloresContraindicados
+    }
   
+}
+
+
+
+
+
+class Sucursal {
+    
+    const vehiculos = #{}
+
+    const viajesRealizados = []
+
+
+
+
+
+    method agregarVehiculo(vehiculo){
+        vehiculos.add(vehiculo)
+    }
+
+
+    method quitarVehiculo(vehiculo){
+        vehiculos.remove(vehiculo)
+    }
+
+
+    method vehiculos(){
+        return vehiculos
+    }
+
+
+    method registrarViaje(reserva, vehiculo) {
+      self.validarVehiculo(vehiculo)
+      self.validarCumplimientoDeReserva(reserva, vehiculo)
+      viajesRealizados.add(new Viaje(reserva = reserva, vehiculo = vehiculo))   // esta bien asi?
+}
+
+
+
+
+    method validarVehiculo(vehiculo){
+      if (not vehiculos.contains(vehiculo)) {
+        self.error("El vehículo no pertenece a la flota")
+      }
+    }
+
+
+
+    method validarCumplimientoDeReserva(reserva, vehiculo){
+      if (not reserva.puedeRealizarsePara(vehiculo)) {
+        self.error("El vehículo no puede cumplir la reserva")
+      }
+    }
+
+
+
+    method viajesRealizados(){
+        return viajesRealizados
+    }
+
+
+    method vehiculosQueCumplenReserva(reserva) {
+        return vehiculos.filter({ vehiculo => reserva.puedeRealizarsePara(vehiculo)
+    })
+    }
+
+
+
+    method reservasDe(vehiculo) {
+        return viajesRealizados.filter({ viaje => viaje.vehiculo() == vehiculo }).map({ viaje => viaje.reserva() })
+    }
+
+
+
+    method distanciaRecorridaPor(vehiculo) {
+        return viajesRealizados.filter({ viaje => viaje.vehiculo() == vehiculo }).sum({ viaje => viaje.reserva().distancia() })
+    }
+
+}
+
+
+
+
+class Viaje {
+    var property reserva
+
+    var property vehiculo
 }

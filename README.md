@@ -280,14 +280,29 @@ Luego de registrados estos tres viajes:
 - combi debe tener registradas las reservas de ir a la UNQ y a la UTN, habiendo recorrido en total 90 km.
 - academia debe tener registrada únicamente la reserva de ir a Unsam, habiendo recorrido 70 km.
 
+
+
+
+
 ### 4. Para reflexionar:
 
-¿Da igual que las colecciones de flotas y viajes en la sucursal sean listas o conjuntos? Si piensas que no, cambia una implementación
-por la otra y revisa el resultado.
+¿Da igual que las colecciones de flotas y viajes en la sucursal sean listas o conjuntos? Si piensas que no, cambia una implementación por la otra y revisa el resultado.
+
+No da igual, ya que para la flota conviene utilizar un conjunto, porque un vehículo no debería aparecer más de una vez. En cambio, para los viajes conviene utilizar una lista, ya que representa un historial y permite registrar cada viaje realizado, incluso si dos viajes tienen características similares.
+
 
 ¿Dónde se instancia un viaje, dentro o fuera de la clase Sucursal?. Pensar como sería la alternativa.
 
+El viaje se instancia dentro de la clase Sucursal, al momento de registrarlo. Esto permite que la sucursal primero valide que el vehículo pertenezca a su flota y que pueda cumplir con la reserva, y recién después cree el viaje y lo agregue al historial de viajes.
+
+
+
 ¿La combi es un objeto autodefinido o una instancia de clase? ¿Se puede usar la otra variante indistintamente?
+
+La combi es un objeto autodefinido, ya que el enunciado establece que existe una única combi adaptable para toda la empresa.
+
+
+
 
 Dibujar el diagrama dinámico que muestra el estado final del último test.
 
