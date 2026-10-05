@@ -46,8 +46,6 @@ Con respecto al ruido del motor, es similar: Sin ninguna adpatación es ruidoso.
 
 El color del vehículo económico es siempre **beige**.
 
-
-// ME QUEDÉ ACÁ, TENGO QUE VER LA AUTONOMIA
 Un vehículo económico sin ninguna adaptación tiene 200 km de autonomía. El caño de espape silenciado le quita 10 km de autonomía. El tanque adicional de gas aporta 200 km de autonómía extra. El transportador de silla de rueda le quita 20 km de autonomía.
 
 
@@ -97,6 +95,7 @@ Considerar los siguientes vehículos. Se utilizan nombres de fantasía porque de
     - la capacidad es 4
     - No puede llevar sillas de ruedas
     - Es ruidoso
+
 #### Económico: cuervo
   Probar que para cuervo:
     - El color es beige
@@ -105,6 +104,7 @@ Considerar los siguientes vehículos. Se utilizan nombres de fantasía porque de
     - la capacidad es 3
     - Puede llevar sillas de ruedas
     - No es ruidoso
+
 #### Económico: xeneise
   Probar que para xeneise:
     - El color es beige
@@ -113,6 +113,7 @@ Considerar los siguientes vehículos. Se utilizan nombres de fantasía porque de
     - la capacidad es 5
     - No puede llevar sillas de ruedas
     - No es ruidoso
+    
 #### Económico: millonario
   Probar que para millonario:
     - El color es beige

@@ -2,10 +2,119 @@ import remiseria.*
 
 
 
-describe "group of tests for pepita" {
+describe "tests de remiseria" {
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  const reyDeCopas = new Torino (
+    color = "rojo",
+    autonomia = 300,
+    velocidadMaxima = 120
+  )
+
+  test "Torino: rey de copas" {
+    assert.equals("rojo", reyDeCopas.color())
+    assert.equals(300, reyDeCopas.autonomia())
+    assert.equals(120, reyDeCopas.velocidadMaxima())
+    assert.equals(4, reyDeCopas.capacidad())
+    assert.notThat(reyDeCopas.transportador())
+    assert.that(reyDeCopas.motorRuidoso())
+  }
+
+
+
+
+  const academia = new Torino (
+    color = "celeste",
+    autonomia = 250,
+    velocidadMaxima = 110
+  )
+
+  test "Torino: academia" {
+    assert.equals("celeste", academia.color())
+    assert.equals(250, academia.autonomia())
+    assert.equals(110, academia.velocidadMaxima())
+    assert.equals(4, academia.capacidad())
+    assert.notThat(academia.transportador())
+    assert.that(academia.motorRuidoso())
+  }
+
+
+
+  const cuervo = new Economico (
+    tanqueExtra = true,
+    transportador = true,
+    cañoDeEscapeSilencioso = false
+  )
+
+  test "Economico: cuervo" {
+    assert.equals("beige", cuervo.color())
+    assert.equals(380, cuervo.autonomia())
+    assert.equals(80, cuervo.velocidadMaxima())
+    assert.equals(3, cuervo.capacidad())
+    assert.that(cuervo.transportador())
+    assert.notThat(cuervo.cañoDeEscapeSilencioso())
+  }
+
+
+
+
+  const xeneize = new Economico (
+    tanqueExtra = false,
+    transportador = false,
+    cañoDeEscapeSilencioso = true
+  )
+
+  test "Economico: xeneize" {
+    assert.equals("beige", xeneize.color())
+    assert.equals(190, xeneize.autonomia())
+    assert.equals(115, xeneize.velocidadMaxima())
+    assert.equals(5, xeneize.capacidad())
+    assert.notThat(xeneize.transportador())
+    assert.that(xeneize.cañoDeEscapeSilencioso())
+  }
+
+
+
+
+  const millonario = new Economico (
+    tanqueExtra = false,
+    transportador = false,
+    cañoDeEscapeSilencioso = false
+  )
+
+  test "Economico: millonario" {
+    assert.equals("beige", millonario.color())
+    assert.equals(200, millonario.autonomia())
+    assert.equals(120, millonario.velocidadMaxima())
+    assert.equals(5, millonario.capacidad())
+    assert.notThat(millonario.transportador())
+    assert.notThat(millonario.cañoDeEscapeSilencioso())
+  }
+
+
+  
+
+  test "combi: motor urbano e interior accesible" {
+    combi.interior(interiorAccesible)
+    combi.motor(motorUrbano)
+    assert.equals("celeste", combi.color())
+    assert.equals(1000, combi.autonomia())
+    assert.equals(130, combi.velocidadMaxima())
+    assert.equals(5, combi.capacidad())
+    assert.that(combi.transportador())
+    assert.notThat(combi.motorRuidoso())
+  }
+
+
+
+  test "combi: motor deportivo e interior espacioso" {
+    combi.interior(interiorEspacioso)
+    combi.motor(motorDeportivo)
+    assert.equals("celeste", combi.color())
+    assert.equals(400, combi.autonomia())
+    assert.equals(230, combi.velocidadMaxima())
+    assert.equals(7, combi.capacidad())
+    assert.notThat(combi.transportador())
+    assert.that(combi.motorRuidoso())
   }
 
 }

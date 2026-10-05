@@ -2,7 +2,7 @@ class Torino {
 
   const capacidad = 4
 
-  const transportaSillaDeRuedas = false
+  const transportador = false
 
   const motorRuidoso = true
 
@@ -12,14 +12,36 @@ class Torino {
 
   var property autonomia 
 
+
+  method capacidad(){
+    return capacidad
+  }
+
+
+  method transportador(){
+    return transportador
+  }
+
+
+  method motorRuidoso(){
+    return motorRuidoso
+  }
+
 }
 
 
 
 
-class Economicos {
+class Economico {
 
-  const color = "beige"
+
+  var property transportador
+
+  var property tanqueExtra
+  
+  var property cañoDeEscapeSilencioso
+
+  const property color = "beige"
 
   
 
@@ -53,10 +75,135 @@ class Economicos {
   }
 
 
+  method autonomia() {
+    var resultado = 200
+
+    if (cañoDeEscapeSilencioso) {
+        resultado = resultado - 10
+    }
+
+    if (tanqueExtra) {
+        resultado = resultado + 200
+    }
+
+    if (transportador) {
+        resultado = resultado - 20
+    }
+
+    return resultado
+    }
+}
+
+
+
+
+
+object combi {
+
+  const color = "celeste"
+
+
+  var property interior = interiorEspacioso
+
+  var property motor = motorDeportivo
+
+
+
+  method capacidad(){
+    return interior.capacidad()
+  }
+
+
+  method transportador(){
+    return interior.transportador()
+  }
+
+  
+  method velocidadMaxima(){
+    return motor.velocidadMaxima()
+  }
+
+
   method autonomia(){
-    if ()
+    return motor.autonomia()
+  }
+
+
+  method motorRuidoso(){
+    return motor.esRuidoso()
+  }
+
+
+  method color(){
+    return color
   }
 }
 
 
 
+
+
+object interiorEspacioso {
+
+  method capacidad(){
+    return 7
+  }
+
+  method transportador(){
+    return false
+  }
+}
+
+
+
+
+object interiorAccesible {
+
+  method capacidad(){
+    return 5
+  }
+
+  method transportador(){
+    return true
+  }
+}
+
+
+
+
+object motorDeportivo {
+
+  method autonomia(){
+    return 400
+  }
+
+
+  method velocidadMaxima(){
+    return 230
+  }
+
+
+  method esRuidoso(){
+    return true
+  }
+}
+
+
+
+
+object motorUrbano {
+
+  method autonomia(){
+    return 1000
+  }
+
+
+  method velocidadMaxima(){
+    return 130
+  }
+
+
+  method esRuidoso(){
+    return false
+  }
+}
