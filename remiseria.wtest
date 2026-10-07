@@ -15,7 +15,7 @@ describe "tests de remiseria" {
     assert.equals(300, reyDeCopas.autonomia())
     assert.equals(120, reyDeCopas.velocidadMaxima())
     assert.equals(4, reyDeCopas.capacidad())
-    assert.notThat(reyDeCopas.transportador())
+    assert.notThat(reyDeCopas.tieneTransportador())
     assert.that(reyDeCopas.motorRuidoso())
   }
 
@@ -33,16 +33,14 @@ describe "tests de remiseria" {
     assert.equals(250, academia.autonomia())
     assert.equals(110, academia.velocidadMaxima())
     assert.equals(4, academia.capacidad())
-    assert.notThat(academia.transportador())
+    assert.notThat(academia.tieneTransportador())
     assert.that(academia.motorRuidoso())
   }
 
 
 
   const cuervo = new Economico (
-    tanqueExtra = true,
-    transportador = true,
-    cañoDeEscapeSilencioso = false
+    adaptaciones = #{tanqueExtra, transportador}
   )
 
   test "Economico: cuervo" {
@@ -50,17 +48,15 @@ describe "tests de remiseria" {
     assert.equals(380, cuervo.autonomia())
     assert.equals(80, cuervo.velocidadMaxima())
     assert.equals(3, cuervo.capacidad())
-    assert.that(cuervo.transportador())
-    assert.notThat(cuervo.cañoDeEscapeSilencioso())
+    assert.that(cuervo.tieneTransportador())
+    assert.notThat(cuervo.motorRuidoso())
   }
 
 
 
 
   const xeneize = new Economico (
-    tanqueExtra = false,
-    transportador = false,
-    cañoDeEscapeSilencioso = true
+    adaptaciones = #{cañoDeEscapeSilencioso}
   )
 
   test "Economico: xeneize" {
@@ -68,26 +64,23 @@ describe "tests de remiseria" {
     assert.equals(190, xeneize.autonomia())
     assert.equals(115, xeneize.velocidadMaxima())
     assert.equals(5, xeneize.capacidad())
-    assert.notThat(xeneize.transportador())
-    assert.that(xeneize.cañoDeEscapeSilencioso())
+    assert.notThat(xeneize.tieneTransportador())
+    assert.that(xeneize.motorRuidoso())
   }
 
 
 
 
-  const millonario = new Economico (
-    tanqueExtra = false,
-    transportador = false,
-    cañoDeEscapeSilencioso = false
-  )
+  const millonario = new Economico ()
+  
 
   test "Economico: millonario" {
     assert.equals("beige", millonario.color())
     assert.equals(200, millonario.autonomia())
     assert.equals(120, millonario.velocidadMaxima())
     assert.equals(5, millonario.capacidad())
-    assert.notThat(millonario.transportador())
-    assert.notThat(millonario.cañoDeEscapeSilencioso())
+    assert.notThat(millonario.tieneTransportador())
+    assert.that(millonario.motorRuidoso())
   }
 
 
@@ -100,7 +93,7 @@ describe "tests de remiseria" {
     assert.equals(1000, combi.autonomia())
     assert.equals(130, combi.velocidadMaxima())
     assert.equals(5, combi.capacidad())
-    assert.that(combi.transportador())
+    assert.that(combi.tieneTransportador())
     assert.notThat(combi.motorRuidoso())
   }
 
@@ -113,7 +106,7 @@ describe "tests de remiseria" {
     assert.equals(400, combi.autonomia())
     assert.equals(230, combi.velocidadMaxima())
     assert.equals(7, combi.capacidad())
-    assert.notThat(combi.transportador())
+    assert.notThat(combi.tieneTransportador())
     assert.that(combi.motorRuidoso())
   }
 
@@ -199,8 +192,6 @@ describe "tests de remiseria" {
 
 
 
-  const villaElisa = new Sucursal (
-    
-  )
+
 
 }

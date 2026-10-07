@@ -1,10 +1,5 @@
 class Torino {
 
-  const capacidad = 4
-
-  const transportador = false
-
-  const motorRuidoso = true
 
   var property color 
 
@@ -14,17 +9,17 @@ class Torino {
 
 
   method capacidad(){
-    return capacidad
+    return 4
   }
 
 
-  method transportador(){
-    return transportador
+  method tieneTransportador(){
+    return false
   }
 
 
   method motorRuidoso(){
-    return motorRuidoso
+    return true
   }
 
 }
@@ -35,63 +30,123 @@ class Torino {
 class Economico {
 
 
-  var property transportador
+  const adaptaciones = #{}
 
-  var property tanqueExtra
-  
-  var property cañoDeEscapeSilencioso
 
-  const property color = "beige"
 
-  
+  method agregarAdaptación(adaptacion){
+    adaptaciones.add(adaptacion)
+  }
+
 
   method capacidad(){
-    if (transportador and tanqueExtra) {
-      return 3
-    } else if (transportador or tanqueExtra) {
-      return 4
+    return self.capacidadBase() - adaptaciones.sum{adaptacion => adaptacion.espacioQueOcupa()}
+  }
+
+
+  method capacidadBase(){
+    return 5
+  }
+
+
+  method velocidadMaxima() {
+    return adaptaciones.min{adaptacion => adaptacion.velocidadMaxima()}
+
+  }
+
+
+  method motorRuidoso(){
+    return not (adaptaciones.contains(cañoDeEscapeSilencioso) or adaptaciones.contains(tanqueExtra)) // hago un method para cada uno?
+  }
+
+
+  method tieneTransportador(){
+    return adaptaciones.contains(transportador) 
+  }
+  
+
+
+  method autonomia() {
+    return self.autonomiaBase() - adaptaciones.sum{adaptacion => adaptacion.autonomia()}
+    }
+
+
+  method autonomiaBase(){
+    return 200 
+  }
+
+
+    method color(){
+      return "beige"
+    }
+}
+
+
+
+
+object transportador {
+
+  method espacioQueOcupa(){
+    if (Economico.adaptaciones.contains(self)){
+      return 1
     } else {
-      return 5
+      return 0
     }
   }
 
 
   method velocidadMaxima(){
-    if (tanqueExtra) {
-      return 80
-    } else if (transportador) {
-      return 90
-    } else if (cañoDeEscapeSilencioso) {
-      return 115
+    return 90
+  }
+
+
+  method autonomia(){    
+    return -20
+  }
+}
+
+
+
+
+object tanqueExtra {
+
+  method espacioQueOcupa(){
+    if (Economico.adaptaciones.contains(self)){
+      return 1
     } else {
-      return 120
+      return 0
     }
   }
 
 
-
-  method motorRuidoso(){
-    return not (cañoDeEscapeSilencioso or tanqueExtra) 
+  method velocidadMaxima(){
+    return 80
   }
 
 
-  method autonomia() {
-    var resultado = 200
+  method autonomia(){
+    return 200
+  }
+}
 
-    if (cañoDeEscapeSilencioso) {
-        resultado = resultado - 10
-    }
 
-    if (tanqueExtra) {
-        resultado = resultado + 200
-    }
 
-    if (transportador) {
-        resultado = resultado - 20
-    }
+object cañoDeEscapeSilencioso {
 
-    return resultado
-    }
+  method espacioQueOcupa(){
+    return 0
+  }
+
+
+  method velocidadMaxima(){
+    return 115
+  }
+
+
+  method autonomia(){
+    return -10
+  }
+
 }
 
 
@@ -114,7 +169,7 @@ object combi {
   }
 
 
-  method transportador(){
+  method tieneTransportador(){
     return interior.transportador()
   }
 
@@ -230,12 +285,12 @@ object reserva {
 
   method puedeRealizarse(vehiculo) {
     return vehiculo.capacidad() >= cantidadPersonas and
-           vehiculo.autonomia() >= distancia and
-           vehiculo.velocidadMaxima() >= ((distancia / tiempo) + 10) and
-           not coloresContraindicados.contains(vehiculo.color()) and
-           self.tieneTransportadorSiNecesita(vehiculo) and
-           self.tieneMotorSilenciosoSiNecesita(vehiculo)
-   }
+          vehiculo.autonomia() >= distancia and
+          vehiculo.velocidadMaxima() >= ((distancia / tiempo) + 10) and
+          not coloresContraindicados.contains(vehiculo.color()) and
+          self.tieneTransportadorSiNecesita(vehiculo) and
+          self.tieneMotorSilenciosoSiNecesita(vehiculo)
+  }
   
 
     method tieneTransportadorSiNecesita(vehiculo){
@@ -342,7 +397,7 @@ class Sucursal {
 
 
     method distanciaRecorridaPor(vehiculo) {
-        return viajesRealizados.filter({ viaje => viaje.vehiculo() == vehiculo }).sum({ viaje => viaje.reserva().distancia() })
+        return viajesRealizados.filter({ viaje => viaje.vehiculo() == vehiculo }).sum({ viaje => viaje.distancia() })
     }
 
 }
@@ -354,4 +409,9 @@ class Viaje {
     var property reserva
 
     var property vehiculo
+
+
+    method distancia(){
+      return reserva.distancia()
+    }
 }
