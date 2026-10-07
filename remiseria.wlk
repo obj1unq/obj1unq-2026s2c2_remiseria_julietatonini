@@ -50,21 +50,22 @@ class Economico {
 
 
   method velocidadMaxima() {
+    if (adaptaciones.isEmpty()){
+      return 120
+    }
     return adaptaciones.min{adaptacion => adaptacion.velocidadMaxima()}
-
   }
 
 
   method motorRuidoso(){
-    return not (adaptaciones.contains(cañoDeEscapeSilencioso) or adaptaciones.contains(tanqueExtra)) // hago un method para cada uno?
+    return not adaptaciones.any({adaptacion => adaptacion.silenciaElMotor()})
   }
 
 
   method tieneTransportador(){
-    return adaptaciones.contains(transportador) 
+    return adaptaciones.any({adaptacion => adaptacion.puedeLlevarSillaDeRuedas()})
   }
   
-
 
   method autonomia() {
     return self.autonomiaBase() - adaptaciones.sum{adaptacion => adaptacion.autonomia()}
@@ -103,6 +104,16 @@ object transportador {
   method autonomia(){    
     return -20
   }
+
+
+  method puedeLlevarSillaDeRuedas(){
+    return true
+  }
+
+
+  method silenciaElMotor(){
+    return false
+  }
 }
 
 
@@ -127,6 +138,16 @@ object tanqueExtra {
   method autonomia(){
     return 200
   }
+
+
+  method puedeLlevarSillaDeRuedas(){
+    return false
+  }
+
+
+  method silenciaElMotor(){
+    return true
+  }
 }
 
 
@@ -145,6 +166,16 @@ object cañoDeEscapeSilencioso {
 
   method autonomia(){
     return -10
+  }
+
+
+  method puedeLlevarSillaDeRuedas(){
+    return false
+  }
+
+
+  method silenciaElMotor(){
+    return true
   }
 
 }
