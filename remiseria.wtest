@@ -1,0 +1,197 @@
+import remiseria.*
+
+
+
+describe "tests de remiseria" {
+
+  const reyDeCopas = new Torino (
+    color = "rojo",
+    autonomia = 300,
+    velocidadMaxima = 120
+  )
+
+  test "Torino: rey de copas" {
+    assert.equals("rojo", reyDeCopas.color())
+    assert.equals(300, reyDeCopas.autonomia())
+    assert.equals(120, reyDeCopas.velocidadMaxima())
+    assert.equals(4, reyDeCopas.capacidad())
+    assert.notThat(reyDeCopas.tieneTransportador())
+    assert.that(reyDeCopas.motorRuidoso())
+  }
+
+
+
+
+  const academia = new Torino (
+    color = "celeste",
+    autonomia = 250,
+    velocidadMaxima = 110
+  )
+
+  test "Torino: academia" {
+    assert.equals("celeste", academia.color())
+    assert.equals(250, academia.autonomia())
+    assert.equals(110, academia.velocidadMaxima())
+    assert.equals(4, academia.capacidad())
+    assert.notThat(academia.tieneTransportador())
+    assert.that(academia.motorRuidoso())
+  }
+
+
+
+  const cuervo = new Economico (
+    adaptaciones = #{tanqueExtra, transportador}
+  )
+
+  test "Economico: cuervo" {
+    assert.equals("beige", cuervo.color())
+    assert.equals(380, cuervo.autonomia())
+    assert.equals(80, cuervo.velocidadMaxima())
+    assert.equals(3, cuervo.capacidad())
+    assert.that(cuervo.tieneTransportador())
+    assert.notThat(cuervo.motorRuidoso())
+  }
+
+
+
+
+  const xeneize = new Economico (
+    adaptaciones = #{cañoDeEscapeSilencioso}
+  )
+
+  test "Economico: xeneize" {
+    assert.equals("beige", xeneize.color())
+    assert.equals(190, xeneize.autonomia())
+    assert.equals(115, xeneize.velocidadMaxima())
+    assert.equals(5, xeneize.capacidad())
+    assert.notThat(xeneize.tieneTransportador())
+    assert.that(xeneize.motorRuidoso())
+  }
+
+
+
+
+  const millonario = new Economico ()
+  
+
+  test "Economico: millonario" {
+    assert.equals("beige", millonario.color())
+    assert.equals(200, millonario.autonomia())
+    assert.equals(120, millonario.velocidadMaxima())
+    assert.equals(5, millonario.capacidad())
+    assert.notThat(millonario.tieneTransportador())
+    assert.that(millonario.motorRuidoso())
+  }
+
+
+  
+
+  test "combi: motor urbano e interior accesible" {
+    combi.interior(interiorAccesible)
+    combi.motor(motorUrbano)
+    assert.equals("celeste", combi.color())
+    assert.equals(1000, combi.autonomia())
+    assert.equals(130, combi.velocidadMaxima())
+    assert.equals(5, combi.capacidad())
+    assert.that(combi.tieneTransportador())
+    assert.notThat(combi.motorRuidoso())
+  }
+
+
+
+  test "combi: motor deportivo e interior espacioso" {
+    combi.interior(interiorEspacioso)
+    combi.motor(motorDeportivo)
+    assert.equals("celeste", combi.color())
+    assert.equals(400, combi.autonomia())
+    assert.equals(230, combi.velocidadMaxima())
+    assert.equals(7, combi.capacidad())
+    assert.notThat(combi.tieneTransportador())
+    assert.that(combi.motorRuidoso())
+  }
+
+
+
+
+  test "Reserva exigente cumplida sin inconvenientes"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(480)
+    reserva.tiempo(4)
+    reserva.agregarColorContraindicado("rojo")
+    reserva.agregarColorContraindicado("verde fluor")
+    reserva.necesitaTransportador(true)
+    reserva.necesitaMotorSilencioso(true)
+    combi.interior(interiorAccesible)
+    combi.motor(motorUrbano)
+    assert.that(reserva.puedeRealizarse(combi))
+  }
+
+
+
+
+  test "Reserva que falla por capacidad insuficiente"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(200)
+    reserva.tiempo(2)
+    assert.notThat(reserva.puedeRealizarse(reyDeCopas))
+  }
+
+
+
+
+  test "Reserva que falla por autonomía insuficiente"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(195)
+    reserva.tiempo(2)
+    assert.notThat(reserva.puedeRealizarse(xeneize))
+  }
+
+
+
+
+  test "Reserva que falla por velocidad insuficiente"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(200)
+    reserva.tiempo(1)
+    assert.notThat(reserva.puedeRealizarse(millonario))
+  }
+
+
+
+
+  test "Reserva que falla por color contraindicado"{
+    reserva.cantidadPersonas(4)
+    reserva.distancia(150)
+    reserva.tiempo(1.5)
+    reserva.agregarColorContraindicado("rojo")
+    assert.notThat(reserva.puedeRealizarse(reyDeCopas))
+  }
+
+
+
+
+  test "Reserva que falla por necesitar transportar silla de ruedas"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(150)
+    reserva.tiempo(1.5)
+    reserva.necesitaTransportador(true)
+    assert.notThat(reserva.puedeRealizarse(millonario))
+  }
+
+
+
+
+  test "Reserva que falla por necesitar un vehículo silencioso"{
+    reserva.cantidadPersonas(5)
+    reserva.distancia(150)
+    reserva.tiempo(1.5)
+    reserva.necesitaMotorSilencioso(true)
+    assert.notThat(reserva.puedeRealizarse(millonario))
+  }
+
+
+
+
+
+
+}

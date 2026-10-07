@@ -3,19 +3,27 @@
 La cooperativa ChasquiCoop es una empresa de transporte de personas que cuenta con varias sucursales y una flota de vehículos que pueden dar servicio a una o más sucursales. 
 Para realizar los viajes se reciben reservas indicando una cantidad de personas, una distancia a recorrer y el tiempo máximo de viaje en horas. Además se consideran necesidades especiales que tienen que ver con la sensibilidad cromática, las neurodivergencias y las discapacidades motrices. Para algunas personas con TDAH (Trastorno por Déficit de Atención e Hiperactividad) los colores como el rojo o el verde flúor les ocasionan estrés.
 
+
+
 ## 1. Los vehículos
 
 De cada vehículo se necesita saber:
 - su capacidad (expresada en cantidad de personas que puede transportar al mismo tiempo), 
-- su velocidad máxima
+- su velocidad máxima 
 - su color 
 - si su motor es ruidoso
 - si puede transportar sillas de ruedas. 
-- su autonomía (Es la distancia que puede recorrer sin cargar combustible)
+- su autonomía (Es la distancia que puede recorrer sin cargar combustible) 
 
 Entre los vehículos de las sucursales hay varios **torinos**, varios **económicos** y una **combi adaptable** 
 
+
 * **Torino**: son vehículos con una capacidad de 4 personas. No tiene capacidad de llevar sillas de ruedas y su motor es ruidoso. El color se determina para cada unidad. Como son vehículos viejos, tanto la velocidad máxima como la autonomía se indican para cada unidad.
+
+
+
+
+
 
 * **Económicos**: son vehículos que funcionan a gas y pueden tener adaptaciones que influyen en su rendimiento. Las adaptaciones que puede tener un vehículo económico son:
 - transportador para silla de ruedas
@@ -38,7 +46,14 @@ Con respecto al ruido del motor, es similar: Sin ninguna adpatación es ruidoso.
 
 El color del vehículo económico es siempre **beige**.
 
-Un vehículo económico sin ninguna adapactión tiene 200 km de autonomía. El caño de espape silenciado le quita 10 km de autonomía. El tanque adicional de gas aporta 200 km de autonómía extra. El transportador de silla de rueda le quita 20 km de autonomía.
+Un vehículo económico sin ninguna adaptación tiene 200 km de autonomía. El caño de espape silenciado le quita 10 km de autonomía. El tanque adicional de gas aporta 200 km de autonómía extra. El transportador de silla de rueda le quita 20 km de autonomía.
+
+
+
+
+
+
+
 
 * **La combi adaptable**: un vehículo de color **celeste** reconfigurable, porque se le puede cambiar el interior y el motor. 
 
@@ -80,6 +95,7 @@ Considerar los siguientes vehículos. Se utilizan nombres de fantasía porque de
     - la capacidad es 4
     - No puede llevar sillas de ruedas
     - Es ruidoso
+
 #### Económico: cuervo
   Probar que para cuervo:
     - El color es beige
@@ -88,6 +104,7 @@ Considerar los siguientes vehículos. Se utilizan nombres de fantasía porque de
     - la capacidad es 3
     - Puede llevar sillas de ruedas
     - No es ruidoso
+
 #### Económico: xeneise
   Probar que para xeneise:
     - El color es beige
@@ -96,6 +113,7 @@ Considerar los siguientes vehículos. Se utilizan nombres de fantasía porque de
     - la capacidad es 5
     - No puede llevar sillas de ruedas
     - No es ruidoso
+
 #### Económico: millonario
   Probar que para millonario:
     - El color es beige
@@ -122,6 +140,32 @@ Considerar los siguientes vehículos. Se utilizan nombres de fantasía porque de
     - la capacidad es 7
     - No Puede llevar sillas de ruedas
     - Es ruidoso
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 2. Reservas
 
@@ -181,6 +225,18 @@ Una reserva de 5 personas, 150 km de distancia, 1.5 horas de viaje, que necesita
 
   Probar que esta reserva **no puede** ser cumplida por millonario (el vehículo es ruidoso).
 
+
+
+
+
+
+
+
+
+
+
+
+
 ## 3. Sucursales y viajes
 
 Cada sucursal de ChasquiCoop tiene una flota de vehículos y un historial de viajes realizados.
@@ -224,14 +280,29 @@ Luego de registrados estos tres viajes:
 - combi debe tener registradas las reservas de ir a la UNQ y a la UTN, habiendo recorrido en total 90 km.
 - academia debe tener registrada únicamente la reserva de ir a Unsam, habiendo recorrido 70 km.
 
+
+
+
+
 ### 4. Para reflexionar:
 
-¿Da igual que las colecciones de flotas y viajes en la sucursal sean listas o conjuntos? Si piensas que no, cambia una implementación
-por la otra y revisa el resultado.
+¿Da igual que las colecciones de flotas y viajes en la sucursal sean listas o conjuntos? Si piensas que no, cambia una implementación por la otra y revisa el resultado.
+
+No da igual, ya que para la flota conviene utilizar un conjunto, porque un vehículo no debería aparecer más de una vez. En cambio, para los viajes conviene utilizar una lista, ya que representa un historial y permite registrar cada viaje realizado, incluso si dos viajes tienen características similares.
+
 
 ¿Dónde se instancia un viaje, dentro o fuera de la clase Sucursal?. Pensar como sería la alternativa.
 
+El viaje se instancia dentro de la clase Sucursal, al momento de registrarlo. Esto permite que la sucursal primero valide que el vehículo pertenezca a su flota y que pueda cumplir con la reserva, y recién después cree el viaje y lo agregue al historial de viajes.
+
+
+
 ¿La combi es un objeto autodefinido o una instancia de clase? ¿Se puede usar la otra variante indistintamente?
+
+La combi es un objeto autodefinido, ya que el enunciado establece que existe una única combi adaptable para toda la empresa.
+
+
+
 
 Dibujar el diagrama dinámico que muestra el estado final del último test.
 
